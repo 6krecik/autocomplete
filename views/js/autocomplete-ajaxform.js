@@ -4,8 +4,6 @@ $(document).ready(function(){
           e.preventDefault();
           var form = $(this)[0]
           var action = form.action;
-          console.log($(form));
-          console.log(action);
           var formData = new FormData(form);
           sendAjax(action, formData);
       }
