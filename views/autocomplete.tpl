@@ -1,6 +1,22 @@
 {if isset($autocompletes) && $autocompletes }
-    <script src="{if isset($src) && $src}{$src}{/if}"></script>
+    {if isset($srcs) && $srcs}
+        {foreach from=$srcs item=src}
+            <script src="{$src}"></script>
+        {/foreach}
+    {/if}
     <script>window['Autocompleate'] = [];</script>
+<div class="{if $div}panel{/if}">
+    {*form*}
+    {if isset($form) && $form.flag === true}
+        <form class="autocomplete-form {if $form.ajax}autocomplete-ajax{/if}" action="{$form.src}" method="post">
+    {/if}
+    {*div*}
+    {if $div && $name}
+        <div class="panel-heading">
+            {$name}
+        </div>
+    {/if}
+    {*/div*}
     {foreach from=$autocompletes item=autocomplete}
 <div class="">
     {if isset($autocomplete.label) && $autocomplete.label}
@@ -33,8 +49,14 @@
         window['Autocompleate'].push(new AutocompleteManagement('{$autocomplete.prefix}{$autocomplete.name}', '{$autocomplete.url}', '{$autocomplete.limit}') )
     </script>
 
-
 </div>
     {/foreach}
+            {*/form*}
+            {if isset($form) && $form.flag === true}
+            <br>
+            <input value="save" type="submit">
+        </form>
+    {/if}
+</div>
 {/if}
 

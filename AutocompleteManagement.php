@@ -10,9 +10,16 @@ class AutocompleteManagement
     protected $autocompletes = array();
     protected $prefix = '';
     protected $context;
+    protected $div = false;
+    protected $form = ['flag' => false, 'src' => '', 'ajax' => 'false'];
+    protected $name = 'autocomplete';
+    protected $srcs = [];
+    protected $mainUrl = '';
+
 
     public function __construct($prefix = '')
     {
+        $this->mainUrl = str_replace($_SERVER['DOCUMENT_ROOT'],'',dirname(__FILE__)).'/';
         $this->prefix = $prefix;
         $this->context = Context::getContext();
     }
@@ -67,20 +74,41 @@ class AutocompleteManagement
         unset($this->autocompletes[$name]);
     }
 
+    public function setDiv($flag, $name = null)
+    {
+        $this->name = $name? $name : $this->name;
+        $this->div = $flag;
+    }
+
+    public function setForm($flag, $src, $ajax = false)
+    {
+        $this->form['flag'] = $flag;
+        $this->form['src'] = $src;
+        $this->form['ajax'] = $ajax;
+    }
+
     public function generateAutocomplete()
     {
-        $link = str_replace($_SERVER['DOCUMENT_ROOT'],'',dirname(__FILE__));
-        $link .= '/views/js/autocomplete.js';
+        $this->addSrc('views/js/autocomplete.js');
+        $this->addSrc('views/js/autocomplete-ajaxform.js');
 
 
        $this->context->smarty->assign(array(
            'autocompletes' => $this->autocompletes,
-           'src' => $link,
+           'srcs' => $this->srcs,
+           'div' => $this->div,
+           'name' => $this->name,
+           'form' => $this->form,
         ));
 
 
         return Context::getContext()->smarty->fetch(dirname(__FILE__).'/views/autocomplete.tpl');
 
+    }
+
+    protected function addSrc($src)
+    {
+        $this->srcs[] = $this->mainUrl.$src;
     }
 
     public static function trimName($name)

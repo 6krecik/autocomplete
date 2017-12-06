@@ -112,8 +112,6 @@ function AutocompleteManagement(suffix, url, limit) {
     }
 
     _this.checkCounter = function(){
-        console.log(_this.limit);
-        console.log(_this.counter);
         if(0 != _this.limit){
             if (_this.counter >= _this.limit) {
                 $('#autocomplete-input'+_this.suffix).attr('disabled', 'disabled');
