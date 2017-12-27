@@ -55,6 +55,7 @@ function AutocompleteManagement(suffix, url, limit) {
         $divAccessories.html($divAccessories.html() + '<div class="form-control-static"><button type="button" class="delAccessory btn btn-default" name="' + productId + '"><i class="icon-remove text-danger"></i></button>&nbsp;'+ productName +'</div>');
         $nameAccessories.val($nameAccessories.val() + productName + 'Ã‚Â¤');
         $inputAccessories.val($inputAccessories.val() + productId + '-');
+        $inputAccessories.trigger('change');
         $('#autocomplete-input'+_this.suffix).val('');
         $('#autocomplete-input'+_this.suffix).setOptions({
             extraParams: {
@@ -107,6 +108,7 @@ function AutocompleteManagement(suffix, url, limit) {
                 excludeIds : _this.getAccessoriesIds()
             }                });
 
+        $(input).trigger('change');
         _this.counter--;
         _this.checkCounter();
     }
