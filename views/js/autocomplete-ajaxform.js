@@ -1,8 +1,8 @@
 $(document).ready(function(){
-   $(document).on('submit', '.autocomplete-form', function(e){
+   $('.autocomplete-form').on('submit', function(e){
       if (true === $(this).hasClass('autocomplete-ajax')){
           e.preventDefault();
-          var form = $(this)[0]
+          var form = $(this)[0];
           var action = form.action;
           var formData = new FormData(form);
           sendAjax(action, formData);
