@@ -33,6 +33,7 @@ class AutocompleteAjaxHelperDb
         $sql->where('cl.id_shop = '.(int)$shopId);
         $sql->where('cl.name LIKE "%'.$query.'%"');
         $sql->where('c.active = 1');
+        $sql->where('c.id_category > 2');
         !empty($excludeIds)?  $sql->where('c.id_category NOT IN ('.$excludeIds.')') : '';
         return Db::getInstance()->executeS($sql);
     }
