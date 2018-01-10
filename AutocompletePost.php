@@ -61,7 +61,7 @@ class AutocompletePost extends AutocompleteManagement
         }
         $result = array();
         foreach ($this->autocompletes as $autocomplete){
-            $oldIds = empty($autocomplete['attributes'])? array() : array_column($autocomplete['attributes'], 'value');
+            $oldIds = empty($autocomplete['attributes'])? array() : array_column($autocomplete['attributes'], 'id');
             $newIds = $resultPost[$autocomplete['name']];
             $result[$autocomplete['name']]['delete'] = array_diff($oldIds, $newIds);
             $result[$autocomplete['name']]['add'] = array_diff($newIds, $oldIds);
