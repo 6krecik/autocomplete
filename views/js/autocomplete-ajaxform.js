@@ -28,6 +28,9 @@ $(document).ready(function(){
                        return;
                    }
                }
+               if(typeof response.callback !== 'undefined' && typeof window[response.callback] === "function"){
+                   window[response.callback](response);
+               }
            }
        })
    }

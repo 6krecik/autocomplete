@@ -37,4 +37,20 @@ class AutocompleteAjaxHelperDb
         !empty($excludeIds)?  $sql->where('c.id_category NOT IN ('.$excludeIds.')') : '';
         return Db::getInstance()->executeS($sql);
     }
+
+    public function getFeaturesAutocomplete($query, $excludeIds)
+    {
+        $query = pSQL($query);
+        $langId = Context::getContext()->language->id;
+        $shopId = Context::getContext()->shop->id;
+
+        $sql = new DbQuery();
+        $sql->select('f.id_feature, fl.name');
+        $sql->from('feature', 'f');
+        $sql->innerJoin('feature_lang', 'fl', 'f.id_feature = fl.id_feature');
+        $sql->where('fl.id_lang = '.(int)$langId);
+        $sql->where('fl.name LIKE "%'.$query.'%"');
+        !empty($excludeIds)?  $sql->where('f.id_feature NOT IN ('.$excludeIds.')') : '';
+        return Db::getInstance()->executeS($sql);
+    }
 }

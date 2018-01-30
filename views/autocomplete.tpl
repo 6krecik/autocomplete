@@ -54,7 +54,7 @@
             {*/form*}
             {if isset($form) && $form.flag === true}
             <br>
-            <input value="save" type="submit">
+            <input value="{$form.name}" type="submit">
         </form>
     {/if}
 </div>

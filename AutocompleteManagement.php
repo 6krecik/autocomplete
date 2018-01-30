@@ -80,11 +80,12 @@ class AutocompleteManagement
         $this->div = $flag;
     }
 
-    public function setForm($flag, $src, $ajax = false)
+    public function setForm($flag, $src, $ajax = false, $name = 'save')
     {
         $this->form['flag'] = $flag;
         $this->form['src'] = $src;
         $this->form['ajax'] = $ajax;
+        $this->form['name'] = $name;
     }
 
     public function generateAutocomplete()
