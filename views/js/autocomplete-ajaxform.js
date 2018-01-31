@@ -9,14 +9,27 @@ $(document).ready(function(){
       }
    });
 
+   $(document).on('click', '#autocomplete-save-form', function(){
+     var action = $(this).data('link');
+     var formData = [];
+      $('.autocomplete-input-form').each(function(){
+         formData.push( { name: $(this).attr('name'), value: $(this).val()});
+      });
+     sendAjax(action, formData);
+   });
+
    function sendAjax(action, formData){
-       $.ajax({
+       var obj = {};
+       if(formData instanceof FormData){
+           obj = {processData: false, contentType: false}
+       }
+       $.ajax($.extend({
            type: "POST",
            url: action,
            data: formData,
            dataType: 'json',
-           processData: false,
-           contentType: false,
+           async: true,
+           cache: false,
            success: function(response)
            {
                if(typeof response.message !== 'undefined' ){
@@ -32,6 +45,6 @@ $(document).ready(function(){
                    window[response.callback](response);
                }
            }
-       })
+       }, obj))
    }
 });

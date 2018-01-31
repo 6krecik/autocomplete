@@ -7,7 +7,7 @@
     <script>window['Autocompleate'] = [];</script>
 <div class="{if $div}panel{/if}">
     {*form*}
-    {if isset($form) && $form.flag === true}
+    {if isset($form) && $form.flag === true && !$form.ajax}
         <form class="autocomplete-form {if $form.ajax}autocomplete-ajax{/if}" action="{$form.src}" method="post">
     {/if}
     {*div*}
@@ -26,8 +26,8 @@
             </span>
     </label>
     {/if}
-    <input name="inputAccessories-{$autocomplete.prefix}{$autocomplete.name}" id="inputAccessories-{$autocomplete.prefix}{$autocomplete.name}" value="{if isset($autocomplete.attributes) && $autocomplete.attributes}{foreach from=$autocomplete.attributes item=attribute}{$attribute.id}-{/foreach}{else}{/if}" type="hidden">
-    <input name="nameAccessories-{$autocomplete.prefix}{$autocomplete.name}" id="nameAccessories-{$autocomplete.prefix}{$autocomplete.name}" value="{if isset($autocomplete.attributes) && $autocomplete.attributes}{foreach from=$autocomplete.attributes item=attribute}{$attribute.name}Ã‚Â¤{/foreach}{else}{/if}" type="hidden">
+    <input name="inputAccessories-{$autocomplete.prefix}{$autocomplete.name}" class="autocomplete-input-form" id="inputAccessories-{$autocomplete.prefix}{$autocomplete.name}" value="{if isset($autocomplete.attributes) && $autocomplete.attributes}{foreach from=$autocomplete.attributes item=attribute}{$attribute.id}-{/foreach}{else}{/if}" type="hidden">
+    <input name="nameAccessories-{$autocomplete.prefix}{$autocomplete.name}" class="autocomplete-input-form" id="nameAccessories-{$autocomplete.prefix}{$autocomplete.name}" value="{if isset($autocomplete.attributes) && $autocomplete.attributes}{foreach from=$autocomplete.attributes item=attribute}{$attribute.name}Ã‚Â¤{/foreach}{else}{/if}" type="hidden">
     <div id="ajax_choose_{$autocomplete.prefix}{$autocomplete.name}">
         <div class="input-group">
             <input class="aut" id="autocomplete-input-{$autocomplete.prefix}{$autocomplete.name}" name="autocomplete-input-{$autocomplete.prefix}{$autocomplete.name}" autocomplete="off" class="ac_input" type="text">
@@ -40,7 +40,7 @@
                 <div class="form-control-static">
                     <button type="button" class="delAccessory btn btn-default" name="{$attribute.id}">
                         <i class="icon-remove text-danger"></i>
-                    </button>&nbsp;{$attribute.name}
+                    </button>{$attribute.name}
                 </div>
             {/foreach}
         {/if}
@@ -52,8 +52,12 @@
 </div>
     {/foreach}
             {*/form*}
-            {if isset($form) && $form.flag === true}
-            <br>
+    {if isset($form) && $form.flag === true && $form.ajax}
+        <br>
+        <button type="button" data-link="{$form.src}" id="autocomplete-save-form">
+            <i class="">{$form.name}</i>
+        </button>
+    {elseif isset($form) && $form.flag === true && !$form.ajax}
             <input value="{$form.name}" type="submit">
         </form>
     {/if}
