@@ -42,7 +42,6 @@ class AutocompleteAjaxHelperDb
     {
         $query = pSQL($query);
         $langId = Context::getContext()->language->id;
-        $shopId = Context::getContext()->shop->id;
 
         $sql = new DbQuery();
         $sql->select('f.id_feature, fl.name');
@@ -51,6 +50,18 @@ class AutocompleteAjaxHelperDb
         $sql->where('fl.id_lang = '.(int)$langId);
         $sql->where('fl.name LIKE "%'.$query.'%"');
         !empty($excludeIds)?  $sql->where('f.id_feature NOT IN ('.$excludeIds.')') : '';
+        return Db::getInstance()->executeS($sql);
+    }
+
+    public function getManufacturersAutocomplete($query, $excludeIds)
+    {
+        $query = pSQL($query);
+
+        $sql = new DbQuery();
+        $sql->select('m.id_manufacturer, m.name');
+        $sql->from('manufacturer', 'm');
+        $sql->where('m.name LIKE "%'.$query.'%"');
+        !empty($excludeIds)?  $sql->where('m.id_manufacturer NOT IN ('.$excludeIds.')') : '';
         return Db::getInstance()->executeS($sql);
     }
 }

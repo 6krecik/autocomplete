@@ -50,6 +50,10 @@ class AutocompleteAjaxHelper extends AutocompleteAjaxHelperDb
         $this->getAjax($this, 'getFeaturesAutocomplete', 'name', 'id_feature');
     }
 
+    public function getAjaxManufacturers()
+    {
+        $this->getAjax($this, 'getManufacturersAutocomplete', 'name', 'id_manufacturer');
+    }
 
 
 }
