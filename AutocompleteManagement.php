@@ -7,6 +7,9 @@
  */
 class AutocompleteManagement
 {
+    const PLUGINJS = '/js/jquery/plugins/autocomplete/jquery.autocomplete.js';
+    const PLUGINCSS = '/js/jquery/plugins/autocomplete/jquery.autocomplete.css';
+
     protected $autocompletes = array();
     protected $prefix = '';
     protected $context;
@@ -90,9 +93,9 @@ class AutocompleteManagement
 
     public function generateAutocomplete()
     {
-        $this->addSrc('views/js/autocomplete.js');
+        $this->addSrc('views/js/autocomplete-load-plugin.js');
         $this->addSrc('views/js/autocomplete-ajaxform.js');
-
+        $this->addSrc('views/js/autocomplete.js');
 
        $this->context->smarty->assign(array(
            'autocompletes' => $this->autocompletes,
@@ -100,6 +103,8 @@ class AutocompleteManagement
            'div' => $this->div,
            'name' => $this->name,
            'form' => $this->form,
+           'PLUGINJS' => SELF::PLUGINJS,
+           'PLUGINCSS' => SELF::PLUGINCSS,
         ));
 
 

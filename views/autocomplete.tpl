@@ -4,8 +4,13 @@
             <script src="{$src}"></script>
         {/foreach}
     {/if}
-    <script>window['Autocompleate'] = [];</script>
-<div class="{if $div}panel{/if}">
+    {addJsDef PLUGINJS=$PLUGINJS}
+    {addJsDef PLUGINCSS=$PLUGINCSS}
+    <script>
+        loadPlugin(PLUGINJS, PLUGINCSS);
+        window['Autocompleate'] = [];
+    </script>
+    <div class="{if $div}panel{/if}">
     {*form*}
     {if isset($form) && $form.flag === true && !$form.ajax}
         <form class="autocomplete-form {if $form.ajax}autocomplete-ajax{/if}" action="{$form.src}" method="post">
