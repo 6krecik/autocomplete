@@ -4,9 +4,9 @@
             <script src="{$src}"></script>
         {/foreach}
     {/if}
-    {addJsDef PLUGINJS=$PLUGINJS}
-    {addJsDef PLUGINCSS=$PLUGINCSS}
     <script>
+        var PLUGINJS = '{$PLUGINJS|escape:'htmlall':'UTF-8'}';
+        var PLUGINCSS = '{$PLUGINCSS|escape:'htmlall':'UTF-8'}';
         loadPlugin(PLUGINJS, PLUGINCSS);
         window['Autocompleate'] = [];
     </script>
