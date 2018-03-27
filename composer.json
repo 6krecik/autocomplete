@@ -1,0 +1,7 @@
+{
+    "name": "krecik/autocomplete",
+    "description": "autocomplete prestashop",
+    "require": {
+        "php": "^5.6 || ^7.0",
+    }
+}
